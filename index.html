@@ -1,0 +1,794 @@
+index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Conceptual - Práctica Docente Teológica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1e40af;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #475569;
+            max-width: 800px;
+            margin: 0 auto 15px;
+        }
+        
+        /* ESTRUCTURA JERÁRQUICA DEL MAPA */
+        .map-hierarchy {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            min-height: 1200px;
+        }
+        
+        /* NIVEL 1: TÍTULO PRINCIPAL */
+        .level-1 {
+            position: relative;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        
+        .main-concept {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 12px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(30, 64, 175, 0.2);
+            border: 3px solid #3b82f6;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* LÍNEAS CONECTORAS NIVEL 1 → NIVEL 2 */
+        .connector-l1 {
+            position: absolute;
+            width: 3px;
+            height: 60px;
+            background-color: #94a3b8;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* NIVEL 2: EJES ARTICULADORES */
+        .level-2 {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 80px;
+            position: relative;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        
+        .axis-box {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid;
+            position: relative;
+            z-index: 9;
+        }
+        
+        .axis-1 { border-top-color: #059669; }
+        .axis-2 { border-top-color: #7c3aed; }
+        .axis-3 { border-top-color: #dc2626; }
+        .axis-4 { border-top-color: #2563eb; }
+        
+        .axis-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .axis-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+        
+        /* LÍNEAS CONECTORAS NIVEL 2 → NIVEL 3 */
+        .connector-l2 {
+            position: absolute;
+            width: 3px;
+            height: 60px;
+            background-color: #94a3b8;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* NIVEL 3: DIMENSIONES PRINCIPALES */
+        .level-3 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 80px;
+            width: 100%;
+            position: relative;
+        }
+        
+        @media (max-width: 1200px) {
+            .level-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .level-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .dimension-box {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid;
+            position: relative;
+            z-index: 8;
+        }
+        
+        .dim-1 { border-left-color: #059669; }
+        .dim-2 { border-left-color: #7c3aed; }
+        .dim-3 { border-left-color: #dc2626; }
+        .dim-4 { border-left-color: #2563eb; }
+        
+        .dim-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .dim-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .dim-1 .dim-icon { background-color: #059669; }
+        .dim-2 .dim-icon { background-color: #7c3aed; }
+        .dim-3 .dim-icon { background-color: #dc2626; }
+        .dim-4 .dim-icon { background-color: #2563eb; }
+        
+        .dim-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        
+        .dim-subtitle {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        
+        .concept-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .concept-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        .concept-list li:before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: inherit;
+        }
+        
+        .dim-1 .concept-list li:before { color: #059669; }
+        .dim-2 .concept-list li:before { color: #7c3aed; }
+        .dim-3 .concept-list li:before { color: #dc2626; }
+        .dim-4 .concept-list li:before { color: #2563eb; }
+        
+        .referentes-box {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 3px solid #cbd5e1;
+        }
+        
+        .referentes-box h4 {
+            font-size: 0.9rem;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+        
+        .referentes-box p {
+            font-size: 0.85rem;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        
+        /* LÍNEAS CONECTORAS NIVEL 3 → NIVEL 4 */
+        .connector-l3 {
+            position: absolute;
+            width: 3px;
+            height: 40px;
+            background-color: #94a3b8;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* NIVEL 4: SUBCONCEPTOS DETALLADOS */
+        .level-4 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+            width: 100%;
+        }
+        
+        @media (max-width: 992px) {
+            .level-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .detail-box {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid #f59e0b;
+        }
+        
+        .detail-title {
+            font-size: 1.2rem;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .detail-item {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .detail-item h5 {
+            color: #1e40af;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .detail-item p {
+            font-size: 0.9rem;
+            color: #475569;
+        }
+        
+        /* NIVEL 5: PERFIL DE SALIDA */
+        .level-5 {
+            width: 100%;
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            box-shadow: 0 15px 30px rgba(30, 64, 175, 0.2);
+        }
+        
+        .profile-title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #fbbf24;
+        }
+        
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        
+        @media (max-width: 992px) {
+            .profile-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .profile-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .profile-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        
+        .profile-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .profile-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* FOOTER Y REFERENCIAS */
+        footer {
+            margin-top: 60px;
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .references h3 {
+            color: #1e40af;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        
+        .references-list {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            column-count: 2;
+            column-gap: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .references-list {
+                column-count: 1;
+            }
+        }
+        
+        .references-list p {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            text-indent: -20px;
+            break-inside: avoid;
+        }
+        
+        /* ANIMACIONES Y EFECTOS */
+        .animate-pop {
+            animation: popIn 0.5s ease-out;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .level-2, .level-3, .level-4, .level-5 {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MAPA CONCEPTUAL</h1>
+            <p class="subtitle">Fundamentos de la Práctica Docente Teológica - Universidad Mariana</p>
+            <p class="subtitle" style="font-style: italic; color: #3b82f6;">Presentado por Jesús Alejandro Del Castillo Rincón</p>
+        </header>
+        
+        <div class="map-hierarchy">
+            
+            <!-- ========== NIVEL 1: CONCEPTO PRINCIPAL ========== -->
+            <div class="level-1 animate-pop">
+                <div class="main-concept">
+                    PRÁCTICA DOCENTE TEOLÓGICA<br>
+                    <span style="font-size: 1rem; font-weight: normal; opacity: 0.9;">Vocación Pastoral y Praxis Transformadora</span>
+                </div>
+                <div class="connector-l1"></div>
+            </div>
+            
+            <!-- ========== NIVEL 2: EJES ARTICULADORES ========== -->
+            <div class="level-2">
+                <div class="axis-box axis-1">
+                    <i class="fas fa-brain axis-icon"></i>
+                    <div class="axis-title">SABER</div>
+                    <p style="font-size: 0.9rem; color: #64748b;">Conocimiento académico y teológico</p>
+                </div>
+                
+                <div class="axis-box axis-2">
+                    <i class="fas fa-pray axis-icon"></i>
+                    <div class="axis-title">FE</div>
+                    <p style="font-size: 0.9rem; color: #64748b;">Dimensión espiritual y pastoral</p>
+                </div>
+                
+                <div class="axis-box axis-3">
+                    <i class="fas fa-balance-scale axis-icon"></i>
+                    <div class="axis-title">ÉTICA</div>
+                    <p style="font-size: 0.9rem; color: #64748b;">Principios morales y de cuidado</p>
+                </div>
+                
+                <div class="axis-box axis-4">
+                    <i class="fas fa-hands-helping axis-icon"></i>
+                    <div class="axis-title">CUIDADO</div>
+                    <p style="font-size: 0.9rem; color: #64748b;">Acompañamiento emocional</p>
+                </div>
+            </div>
+            <div class="connector-l2"></div>
+            
+            <!-- ========== NIVEL 3: DIMENSIONES PRINCIPALES ========== -->
+            <div class="level-3">
+                
+                <!-- DIMENSIÓN 1 -->
+                <div class="dimension-box dim-1">
+                    <div class="dim-header">
+                        <div class="dim-icon">
+                            <i class="fas fa-church"></i>
+                        </div>
+                        <div>
+                            <div class="dim-subtitle">Dimensión 1</div>
+                            <div class="dim-title">Fundamentos Teológicos y Pastorales</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dim-subtitle">Docencia como Ministerio Pastoral</div>
+                    
+                    <ul class="concept-list">
+                        <li><strong>VOCACIÓN:</strong> Llamado interior a servir y formar</li>
+                        <li><strong>MISIÓN EVANGELIZADORA:</strong> Enseñar como testimonio</li>
+                        <li><strong>ENCARNACIÓN DEL EVANGELIO:</strong> Reino de Dios en la cotidianidad</li>
+                        <li><strong>DOCENTE-PASTOR:</strong> Mediador espiritual y constructor de comunidad</li>
+                    </ul>
+                    
+                    <div class="referentes-box">
+                        <h4>Referentes Magisteriales:</h4>
+                        <p>Jesús Maestro, Gravissimum Educationis (Vaticano II, 1965), Veritatis Gaudium (Francisco, 2018), Directorio para la Catequesis</p>
+                    </div>
+                </div>
+                
+                <!-- DIMENSIÓN 2 -->
+                <div class="dimension-box dim-2">
+                    <div class="dim-header">
+                        <div class="dim-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div>
+                            <div class="dim-subtitle">Dimensión 2</div>
+                            <div class="dim-title">Fundamentos Pedagógicos y Éticos</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dim-subtitle">Educar como Acto Transformador</div>
+                    
+                    <ul class="concept-list">
+                        <li><strong>PEDAGOGÍA CRÍTICA:</strong> Paulo Freire - educación liberadora</li>
+                        <li><strong>RECONOCIMIENTO DE SABERES:</strong> Contextualización educativa</li>
+                        <li><strong>ÉTICA DEL CUIDADO:</strong> Nel Noddings - relación pedagógica</li>
+                        <li><strong>JUSTICIA PEDAGÓGICA:</strong> Inclusión, equidad y formación crítica</li>
+                    </ul>
+                    
+                    <div class="referentes-box">
+                        <h4>Referentes Teóricos:</h4>
+                        <p>Paulo Freire (1970), Nel Noddings (2006), Antonio Bolívar (2005), Pedagogía crítica latinoamericana</p>
+                    </div>
+                </div>
+                
+                <!-- DIMENSIÓN 3 -->
+                <div class="dimension-box dim-3">
+                    <div class="dim-header">
+                        <div class="dim-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div>
+                            <div class="dim-subtitle">Dimensión 3</div>
+                            <div class="dim-title">Competencias Socioemocionales</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dim-subtitle">Docente como Mediador Emocional</div>
+                    
+                    <ul class="concept-list">
+                        <li><strong>AUTOCONOCIMIENTO:</strong> Conciencia emocional del docente</li>
+                        <li><strong>AUTORREGULACIÓN:</strong> Manejo del estrés y resiliencia</li>
+                        <li><strong>EMPATÍA Y ESCUCHA:</strong> Comprensión y comunicación profunda</li>
+                        <li><strong>CLIMA EMOCIONAL:</strong> Construcción de ambientes seguros</li>
+                    </ul>
+                    
+                    <div class="referentes-box">
+                        <h4>Referentes Teóricos:</h4>
+                        <p>Daniel Goleman (1995), Rafael Bisquerra (2009), CASEL, MEN Colombia - Estrategia Nacional CSE (2021)</p>
+                    </div>
+                </div>
+                
+                <!-- DIMENSIÓN 4 -->
+                <div class="dimension-box dim-4">
+                    <div class="dim-header">
+                        <div class="dim-icon">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <div>
+                            <div class="dim-subtitle">Dimensión 4</div>
+                            <div class="dim-title">Marco Legal y Normativo</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dim-subtitle">Docencia como Servicio Público</div>
+                    
+                    <ul class="concept-list">
+                        <li><strong>CONSTITUCIÓN COLOMBIANA (Art. 67):</strong> Educación como derecho</li>
+                        <li><strong>LEY 115 DE 1994:</strong> Ley General de Educación</li>
+                        <li><strong>LEY 1620 DE 2013:</strong> Convivencia escolar</li>
+                        <li><strong>DECRETOS REGULATORIOS:</strong> Calidad y ejercicio profesional</li>
+                    </ul>
+                    
+                    <div class="referentes-box">
+                        <h4>Función Normativa:</h4>
+                        <p>Legitima, orienta y exige una práctica docente de calidad, ética y con impacto social en el contexto colombiano</p>
+                    </div>
+                </div>
+            </div>
+            <div class="connector-l3"></div>
+            
+            <!-- ========== NIVEL 4: INTEGRACIÓN Y CONTEXTO ========== -->
+            <div class="level-4">
+                <div class="detail-box">
+                    <div class="detail-title">
+                        <i class="fas fa-puzzle-piece"></i> ARTICULACIÓN INTEGRADORA
+                    </div>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <h5>Nexo Central: La Ética</h5>
+                            <p>Puente que conecta todas las dimensiones (del cuidado, profesional y cristiana)</p>
+                        </div>
+                        <div class="detail-item">
+                            <h5>Flujo Formativo</h5>
+                            <p>VOCACIÓN → PEDAGOGÍA → CUIDADO → REGULACIÓN → PRAXIS TRANSFORMADORA</p>
+                        </div>
+                        <div class="detail-item">
+                            <h5>Marcos de Referencia</h5>
+                            <p>ODS 4 (Educación de calidad), ODS 16 (Sociedades pacíficas), PEI Universidad Mariana</p>
+                        </div>
+                        <div class="detail-item">
+                            <h5>Contexto Aplicado</h5>
+                            <p>Vulnerabilidad, diversidad, construcción de paz en el contexto colombiano</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-box">
+                    <div class="detail-title">
+                        <i class="fas fa-graduation-cap"></i> APLICACIÓN PEDAGÓGICA
+                    </div>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <h5>Aula Presencial/Virtual</h5>
+                            <p>Diseño de ambientes emocionalmente seguros y espiritualmente significativos</p>
+                        </div>
+                        <div class="detail-item">
+                            <h5>Evaluación Integral</h5>
+                            <p>Criterios cognitivos, éticos, socioemocionales y pastorales</p>
+                        </div>
+                        <div class="detail-item">
+                            <h5>Acompañamiento</h5>
+                            <p>Escucha activa, discernimiento vocacional, cuidado emocional y espiritual</p>
+                        </div>
+                        <div class="detail-item">
+                            <h5>Formación Continua</h5>
+                            <p>Actualización en pedagogía, ética, espiritualidad y marco legal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ========== NIVEL 5: PERFIL DE SALIDA ========== -->
+            <div class="level-5">
+                <div class="profile-title">
+                    <i class="fas fa-user-graduate"></i> PERFIL DE SALIDA DEL EDUCADOR TEÓLOGO
+                </div>
+                
+                <div class="profile-grid">
+                    <div class="profile-item">
+                        <div class="profile-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h4>Mediador Crítico</h4>
+                        <p>Del conocimiento y la fe, integrando saberes disciplinares con visión trascendente</p>
+                    </div>
+                    
+                    <div class="profile-item">
+                        <div class="profile-icon">
+                            <i class="fas fa-dove"></i>
+                        </div>
+                        <h4>Testigo de Esperanza</h4>
+                        <p>Constructor de comunidad en contextos de vulnerabilidad y exclusión</p>
+                    </div>
+                    
+                    <div class="profile-item">
+                        <div class="profile-icon">
+                            <i class="fas fa-hands-holding-heart"></i>
+                        </div>
+                        <h4>Acompañante Ético</h4>
+                        <p>Pastor y cuidador con competencias socioemocionales para el acompañamiento integral</p>
+                    </div>
+                    
+                    <div class="profile-item">
+                        <div class="profile-icon">
+                            <i class="fas fa-scale-balanced"></i>
+                        </div>
+                        <h4>Agente Transformador</h4>
+                        <p>Garante de derechos y constructor de una sociedad más justa, fraterna y reconciliada</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ========== REFERENCIAS BIBLIOGRÁFICAS ========== -->
+        <footer>
+            <div class="references">
+                <h3><i class="fas fa-book"></i> REFERENCIAS BIBLIOGRÁFICAS</h3>
+                <div class="references-list">
+                    <p>Bisquerra, R. (2009). <i>Educación emocional y competencias básicas</i>. Editorial Síntesis.</p>
+                    <p>Congreso de Colombia. (1994, 8 de febrero). <i>Ley 115 de 1994. Por la cual se expide la ley general de educación</i>. Diario Oficial No. 41.214.</p>
+                    <p>Francisco. (2018). <i>Constitución apostólica Veritatis Gaudium sobre las universidades y las facultades eclesiásticas</i>.</p>
+                    <p>Freire, P. (1970). <i>Pedagogía del oprimido</i>. Siglo XXI Editores.</p>
+                    <p>Freire, P. (1997). <i>Cartas a quien pretende enseñar</i>. Editorial Siglo XXI.</p>
+                    <p>Goleman, D. (1995). <i>Inteligencia emocional</i>. Kairos.</p>
+                    <p>Ministerio de Educación Nacional de Colombia. (2021). <i>Estrategia Nacional de Competencias Socioemocionales</i>.</p>
+                    <p>Noddings, N. (2006). <i>El cuidado en la educación</i>. Editorial Paidós.</p>
+                    <p>Noddings, N. (2012). <i>La filosofía del cuidado</i>. Editorial Graó.</p>
+                    <p>Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura (UNESCO). (2015). <i>Educación para los Objetivos de Desarrollo Sostenible</i>. París: UNESCO.</p>
+                    <p>Pontificio Consejo para la Promoción de la Nueva Evangelización. (2020). <i>Directorio para la Catequesis</i>. Vaticano.</p>
+                    <p>Vaticano II. (1965). <i>Gravissimum Educationis. Declaración sobre la educación cristiana</i>.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #64748b;">
+                <p><i class="fas fa-map"></i> <strong>Mapa Conceptual</strong> - Fundamentos de la Práctica Docente Teológica</p>
+                <p>Universidad Mariana - Facultad de Educación - Licenciatura en Teología </p>
+                <p style="font-size: 0.8rem; margin-top: 10px;">Presentado por Alejandro Del Castillo</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Animación para revelar elementos al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observar todos los niveles
+            const levels = document.querySelectorAll('.level-2, .level-3, .level-4, .level-5');
+            levels.forEach(level => {
+                level.style.opacity = '0';
+                level.style.transform = 'translateY(20px)';
+                level.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(level);
+            });
+            
+            // Efectos hover para cajas
+            const boxes = document.querySelectorAll('.dimension-box, .detail-item, .profile-item');
+            boxes.forEach(box => {
+                box.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+                });
+                
+                box.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '';
+                });
+            });
+            
+            // Resaltar conexiones jerárquicas
+            const connectors = document.querySelectorAll('.connector-l1, .connector-l2, .connector-l3');
+            connectors.forEach(connector => {
+                connector.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#3b82f6';
+                    this.style.width = '5px';
+                });
+                
+                connector.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '#94a3b8';
+                    this.style.width = '3px';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
