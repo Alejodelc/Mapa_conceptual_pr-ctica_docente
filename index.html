@@ -3,743 +3,1467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Conceptual - Práctica Docente Teológica</title>
+    <title>Fundamentos Práctica Docente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+                :root {
+            --color-teologico: #1e3a8a;
+            --color-pedagogico: #059669;
+            --color-socioemocional: #7c3aed;
+            --color-legal: #dc2626;
+            --color-proyecto: #d97706;
+            --color-contexto: #2563eb;
+            --color-accent: #f59e0b;
+            --color-light: #f8fafc;
+            --color-dark: #1e293b;
+            --color-text: #475569;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: #f8fafc;
-            color: #1e293b;
-            line-height: 1.6;
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--color-dark);
+            line-height: 1.7;
             padding: 20px;
             min-height: 100vh;
         }
-        
+
         .container {
-            max-width: 1600px;
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* PORTADA DEL PROYECTO */
+        .project-cover {
+            background: linear-gradient(135deg, var(--color-teologico) 0%, #2563eb 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 12px solid var(--color-accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" preserveAspectRatio="none"><path d="M0,0 L200,0 L200,200 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .project-cover h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+
+        .project-cover .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 1;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+
+        .info-card p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.95);
+        }
+
+        /* ESTRUCTURA PRINCIPAL DEL MAPA */
+        .map-container {
+            padding: 50px 40px;
+            position: relative;
+        }
+
+        .map-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .map-title h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 2.5rem;
+            color: var(--color-teologico);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .map-title p {
+            font-size: 1.2rem;
+            color: var(--color-text);
+            max-width: 800px;
             margin: 0 auto;
         }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #1e40af;
-        }
-        
-        h1 {
-            font-size: 2.2rem;
-            color: #1e3a8a;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            color: #475569;
-            max-width: 800px;
-            margin: 0 auto 15px;
-        }
-        
-        /* ESTRUCTURA JERÁRQUICA DEL MAPA */
-        .map-hierarchy {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            min-height: 1200px;
-        }
-        
-        /* NIVEL 1: TÍTULO PRINCIPAL */
-        .level-1 {
-            position: relative;
-            margin-bottom: 60px;
-            text-align: center;
-        }
-        
-        .main-concept {
-            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+
+        .concept-central {
+            background: linear-gradient(135deg, var(--color-teologico), #2563eb);
             color: white;
-            padding: 25px 40px;
-            border-radius: 12px;
-            font-size: 1.6rem;
-            font-weight: 700;
-            display: inline-block;
-            box-shadow: 0 10px 25px rgba(30, 64, 175, 0.2);
-            border: 3px solid #3b82f6;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 0 auto 80px;
+            max-width: 800px;
+            box-shadow: var(--shadow-lg);
+            border: 6px solid var(--color-accent);
             position: relative;
             z-index: 10;
         }
-        
-        /* LÍNEAS CONECTORAS NIVEL 1 → NIVEL 2 */
-        .connector-l1 {
-            position: absolute;
-            width: 3px;
-            height: 60px;
-            background-color: #94a3b8;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
+
+        .concept-central h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            color: white;
         }
-        
-        /* NIVEL 2: EJES ARTICULADORES */
-        .level-2 {
+
+        .concept-central p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 25px;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .concept-tags {
             display: flex;
             justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            color: white;
+        }
+
+        .tag:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #FFD700;
+            transform: translateY(-3px);
+        }
+
+        /* DIMENSIONES DEL MAPA */
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 30px;
             margin-bottom: 80px;
             position: relative;
-            width: 100%;
-            flex-wrap: wrap;
         }
-        
-        .axis-box {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            width: 200px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            border-top: 5px solid;
-            position: relative;
-            z-index: 9;
-        }
-        
-        .axis-1 { border-top-color: #059669; }
-        .axis-2 { border-top-color: #7c3aed; }
-        .axis-3 { border-top-color: #dc2626; }
-        .axis-4 { border-top-color: #2563eb; }
-        
-        .axis-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-        
-        .axis-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #1e293b;
-        }
-        
-        /* LÍNEAS CONECTORAS NIVEL 2 → NIVEL 3 */
-        .connector-l2 {
-            position: absolute;
-            width: 3px;
-            height: 60px;
-            background-color: #94a3b8;
-            bottom: -80px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        /* NIVEL 3: DIMENSIONES PRINCIPALES */
-        .level-3 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            margin-bottom: 80px;
-            width: 100%;
-            position: relative;
-        }
-        
-        @media (max-width: 1200px) {
-            .level-3 {
+
+        @media (max-width: 1400px) {
+            .dimensions-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        
+
         @media (max-width: 768px) {
-            .level-3 {
+            .dimensions-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
-        .dimension-box {
-            background-color: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            border-left: 6px solid;
+
+        .dimension {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--shadow-md);
             position: relative;
-            z-index: 8;
+            overflow: hidden;
+            border-top: 8px solid;
+            transition: var(--transition);
+            height: 100%;
         }
-        
-        .dim-1 { border-left-color: #059669; }
-        .dim-2 { border-left-color: #7c3aed; }
-        .dim-3 { border-left-color: #dc2626; }
-        .dim-4 { border-left-color: #2563eb; }
-        
-        .dim-header {
+
+        .dimension:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .dimension.teologica { border-top-color: var(--color-teologico); }
+        .dimension.pedagogica { border-top-color: var(--color-pedagogico); }
+        .dimension.socioemocional { border-top-color: var(--color-socioemocional); }
+        .dimension.legal { border-top-color: var(--color-legal); }
+
+        .dimension-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 20px;
+            margin-bottom: 25px;
         }
-        
-        .dim-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
+
+        .dimension-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .teologica .dimension-icon { background: linear-gradient(135deg, var(--color-teologico), #3b82f6); }
+        .pedagogica .dimension-icon { background: linear-gradient(135deg, var(--color-pedagogico), #10b981); }
+        .socioemocional .dimension-icon { background: linear-gradient(135deg, var(--color-socioemocional), #a78bfa); }
+        .legal .dimension-icon { background: linear-gradient(135deg, var(--color-legal), #ef4444); }
+
+        .dimension-title {
             font-size: 1.5rem;
-        }
-        
-        .dim-1 .dim-icon { background-color: #059669; }
-        .dim-2 .dim-icon { background-color: #7c3aed; }
-        .dim-3 .dim-icon { background-color: #dc2626; }
-        .dim-4 .dim-icon { background-color: #2563eb; }
-        
-        .dim-title {
-            font-size: 1.3rem;
             font-weight: 700;
-            color: #1e293b;
+            color: var(--color-dark);
+            line-height: 1.3;
         }
-        
-        .dim-subtitle {
-            font-size: 0.9rem;
-            color: #64748b;
+
+        .dimension-subtitle {
+            font-size: 1rem;
+            color: var(--color-text);
             font-style: italic;
-            margin-bottom: 5px;
         }
-        
+
         .concept-list {
-            list-style-type: none;
-            margin-top: 15px;
+            list-style: none;
+            margin: 25px 0;
         }
-        
+
         .concept-list li {
-            margin-bottom: 10px;
-            padding-left: 20px;
+            margin-bottom: 15px;
+            padding-left: 30px;
             position: relative;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-text);
         }
-        
-        .concept-list li:before {
-            content: '▸';
+
+        .concept-list li::before {
+            content: '✓';
             position: absolute;
             left: 0;
             color: inherit;
-        }
-        
-        .dim-1 .concept-list li:before { color: #059669; }
-        .dim-2 .concept-list li:before { color: #7c3aed; }
-        .dim-3 .concept-list li:before { color: #dc2626; }
-        .dim-4 .concept-list li:before { color: #2563eb; }
-        
-        .referentes-box {
-            background-color: #f8fafc;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-            border-left: 3px solid #cbd5e1;
-        }
-        
-        .referentes-box h4 {
-            font-size: 0.9rem;
-            color: #475569;
-            margin-bottom: 8px;
-        }
-        
-        .referentes-box p {
-            font-size: 0.85rem;
-            color: #64748b;
-            line-height: 1.4;
-        }
-        
-        /* LÍNEAS CONECTORAS NIVEL 3 → NIVEL 4 */
-        .connector-l3 {
-            position: absolute;
-            width: 3px;
-            height: 40px;
-            background-color: #94a3b8;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        /* NIVEL 4: SUBCONCEPTOS DETALLADOS */
-        .level-4 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-bottom: 80px;
-            width: 100%;
-        }
-        
-        @media (max-width: 992px) {
-            .level-4 {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .detail-box {
-            background-color: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            border-top: 4px solid #f59e0b;
-        }
-        
-        .detail-title {
+            font-weight: bold;
             font-size: 1.2rem;
-            color: #1e293b;
-            margin-bottom: 20px;
-            font-weight: 600;
+        }
+
+        .teologica .concept-list li::before { color: var(--color-teologico); }
+        .pedagogica .concept-list li::before { color: var(--color-pedagogico); }
+        .socioemocional .concept-list li::before { color: var(--color-socioemocional); }
+        .legal .concept-list li::before { color: var(--color-legal); }
+
+        .referentes-box {
+            background: var(--color-light);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+            border-left: 4px solid;
+        }
+
+        .teologica .referentes-box { border-left-color: var(--color-teologico); }
+        .pedagogica .referentes-box { border-left-color: var(--color-pedagogico); }
+        .socioemocional .referentes-box { border-left-color: var(--color-socioemocional); }
+        .legal .referentes-box { border-left-color: var(--color-legal); }
+
+        .referentes-box h4 {
+            font-size: 1.1rem;
+            color: var(--color-dark);
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .detail-grid {
+
+        .referentes-content {
+            font-size: 0.95rem;
+            color: var(--color-text);
+            line-height: 1.5;
+        }
+
+        /* SECCIÓN DE CONTEXTO */
+        .context-section {
+            background: linear-gradient(135deg, var(--color-contexto), #3b82f6);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #FFD700;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .context-section .section-title,
+        .plan-section .section-title,
+        .project-return .section-title {
+            color: #FFD700;
+        }
+
+        .integration-section .section-title {
+            color: var(--color-teologico);
+        }
+
+        .context-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+        }
+
+        @media (max-width: 1200px) {
+            .context-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .context-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .context-card {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .context-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .context-card h3 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .context-card ul {
+            list-style: none;
+        }
+
+        .context-card li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .context-card li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+            font-size: 0.9rem;
+        }
+
+        /* PLAN DE CLASE */
+        .plan-section {
+            background: linear-gradient(135deg, var(--color-pedagogico), #10b981);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+        }
+
+        @media (max-width: 992px) {
+            .plan-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 15px;
+            padding: 35px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .plan-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .plan-card h3 {
+            color: #FFD700;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .plan-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 576px) {
+            .plan-meta {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .meta-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .meta-item h4 {
+            color: #FFD700;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .meta-item p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .competencies {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .competencies h4 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .competencies ul {
+            list-style: none;
+        }
+
+        .competencies li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .competencies li::before {
+            content: '•';
+            position: absolute;
+            left: 15px;
+            color: #FFD700;
+            font-size: 1.3rem;
+        }
+
+        /* PROYECTO DE DEVOLUCIÓN */
+        .project-return {
+            background: linear-gradient(135deg, var(--color-proyecto), #f59e0b);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        @media (max-width: 1200px) {
+            .project-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 15px;
+            padding: 35px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .project-card h3 {
+            color: #FFD700;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .project-card p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .project-products {
+            margin-top: 30px;
+        }
+
+        .project-products h4 {
+            color: #FFD700;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .project-products ol {
+            padding-left: 25px;
+        }
+
+        .project-products li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .implementation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .implementation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .phase {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .phase h5 {
+            color: #FFD700;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .phase p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.95);
+        }
+
+        /* INTEGRACIÓN Y ARTICULACIÓN */
+        .integration-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow-lg);
+            border: 3px solid var(--color-accent);
+        }
+
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .integration-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .integration-card {
+            background: var(--color-light);
+            border-radius: 15px;
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .integration-card:hover {
+            background: #f1f5f9;
+            transform: translateY(-5px);
+        }
+
+        .integration-card h3 {
+            color: var(--color-teologico);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .integration-items {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
         }
-        
+
         @media (max-width: 768px) {
-            .detail-grid {
+            .integration-items {
                 grid-template-columns: 1fr;
             }
         }
-        
-        .detail-item {
-            background-color: #f8fafc;
-            border-radius: 8px;
-            padding: 15px;
-            border-left: 4px solid #3b82f6;
-        }
-        
-        .detail-item h5 {
-            color: #1e40af;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-        
-        .detail-item p {
-            font-size: 0.9rem;
-            color: #475569;
-        }
-        
-        /* NIVEL 5: PERFIL DE SALIDA */
-        .level-5 {
-            width: 100%;
-            background: linear-gradient(135deg, #1e3a8a, #1e40af);
-            border-radius: 15px;
-            padding: 30px;
-            color: white;
-            box-shadow: 0 15px 30px rgba(30, 64, 175, 0.2);
-        }
-        
-        .profile-title {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            color: #fbbf24;
-        }
-        
-        .profile-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-        }
-        
-        @media (max-width: 992px) {
-            .profile-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .profile-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .profile-item {
-            background-color: rgba(255, 255, 255, 0.1);
+
+        .integration-item {
+            background: white;
             border-radius: 10px;
             padding: 20px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
+            border-left: 4px solid var(--color-teologico);
+            transition: var(--transition);
         }
-        
-        .profile-item:hover {
-            transform: translateY(-5px);
-            background-color: rgba(255, 255, 255, 0.15);
+
+        .integration-item:hover {
+            box-shadow: var(--shadow-md);
         }
-        
-        .profile-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: #fbbf24;
-        }
-        
-        .profile-item h4 {
-            font-size: 1.1rem;
+
+        .integration-item h4 {
+            color: var(--color-teologico);
             margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
-        
-        .profile-item p {
-            font-size: 0.9rem;
-            opacity: 0.9;
+
+        .integration-item p {
+            font-size: 0.95rem;
+            color: var(--color-text);
+            line-height: 1.5;
         }
-        
-        /* FOOTER Y REFERENCIAS */
-        footer {
-            margin-top: 60px;
-            background-color: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+        /* REFERENCIAS BIBLIOGRÁFICAS */
+        .references-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow-lg);
         }
-        
-        .references h3 {
-            color: #1e40af;
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
+
+        .references-title {
+            font-size: 2rem;
+            color: var(--color-teologico);
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 800;
+            border-bottom: 3px solid var(--color-light);
+            padding-bottom: 20px;
         }
-        
-        .references-list {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            column-count: 2;
-            column-gap: 40px;
+
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
         }
-        
-        @media (max-width: 768px) {
-            .references-list {
-                column-count: 1;
+
+        @media (max-width: 992px) {
+            .references-grid {
+                grid-template-columns: 1fr;
             }
         }
-        
-        .references-list p {
-            margin-bottom: 12px;
-            padding-left: 20px;
-            text-indent: -20px;
-            break-inside: avoid;
+
+        .reference-category {
+            background: var(--color-light);
+            border-radius: 15px;
+            padding: 30px;
         }
-        
-        /* ANIMACIONES Y EFECTOS */
-        .animate-pop {
-            animation: popIn 0.5s ease-out;
+
+        .reference-category h3 {
+            color: var(--color-teologico);
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-        
-        @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+
+        .reference-list {
+            list-style: none;
         }
-        
-        .level-2, .level-3, .level-4, .level-5 {
-            animation: fadeInUp 0.6s ease-out;
+
+        .reference-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            text-indent: -25px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--color-text);
         }
-        
+
+        .reference-list li::before {
+            content: '•';
+            color: var(--color-teologico);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* FOOTER Y LEGENDA */
+        footer {
+            background: linear-gradient(135deg, var(--color-teologico), #2563eb);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 12px solid var(--color-accent);
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #FFD700;
+            font-weight: 800;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .footer-item {
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .footer-item i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .footer-item p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 15px 25px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .legend-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 6px;
+        }
+
+        .color-1 { background-color: var(--color-teologico); }
+        .color-2 { background-color: var(--color-pedagogico); }
+        .color-3 { background-color: var(--color-socioemocional); }
+        .color-4 { background-color: var(--color-legal); }
+        .color-5 { background-color: var(--color-proyecto); }
+        .color-6 { background-color: var(--color-contexto); }
+
+        .legend-item span {
+            color: white;
+        }
+
+        /* ANIMACIONES */
         @keyframes fadeInUp {
-            0% { transform: translateY(20px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        .animate-fade {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .animate-pulse {
+            animation: pulse 3s infinite ease-in-out;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>MAPA CONCEPTUAL</h1>
-            <p class="subtitle">Fundamentos de la Práctica Docente Teológica - Universidad Mariana</p>
-            <p class="subtitle" style="font-style: italic; color: #3b82f6;">Presentado por Jesús Alejandro Del Castillo Rincón</p>
-        </header>
-        
-        <div class="map-hierarchy">
+        <!-- PORTADA DEL PROYECTO (según formato entregado) -->
+        <div class="project-cover animate-fade">
+            <h1>PRÁCTICA DOCENTE TEOLÓGICA</h1>
+            <p class="subtitle">Fundamentos Teológicos, Pedagógicos, Éticos y Legales para una Educación Humanizante</p>
             
-            <!-- ========== NIVEL 1: CONCEPTO PRINCIPAL ========== -->
-            <div class="level-1 animate-pop">
-                <div class="main-concept">
-                    PRÁCTICA DOCENTE TEOLÓGICA<br>
-                    <span style="font-size: 1rem; font-weight: normal; opacity: 0.9;">Vocación Pastoral y Praxis Transformadora</span>
+            <div class="project-info">
+                <div class="info-card">
+                    <i class="fas fa-university"></i>
+                    <h3>Institución</h3>
+                    <p>Colegio Sagrado Corazón de Jesús<br>Hermanas Bethlemitas<br>Pasto, Nariño</p>
                 </div>
-                <div class="connector-l1"></div>
-            </div>
-            
-            <!-- ========== NIVEL 2: EJES ARTICULADORES ========== -->
-            <div class="level-2">
-                <div class="axis-box axis-1">
-                    <i class="fas fa-brain axis-icon"></i>
-                    <div class="axis-title">SABER</div>
-                    <p style="font-size: 0.9rem; color: #64748b;">Conocimiento académico y teológico</p>
+                <div class="info-card">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Docente Practicante</h3>
+                    <p>Jesús Alejandro Del Castillo Rincón<br>Licenciatura en Teología</p>
                 </div>
-                
-                <div class="axis-box axis-2">
-                    <i class="fas fa-pray axis-icon"></i>
-                    <div class="axis-title">FE</div>
-                    <p style="font-size: 0.9rem; color: #64748b;">Dimensión espiritual y pastoral</p>
+                <div class="info-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Período de Práctica</h3>
+                    <p>Febrero - Mayo 2026<br>Periodo de ejecución</p>
                 </div>
-                
-                <div class="axis-box axis-3">
-                    <i class="fas fa-balance-scale axis-icon"></i>
-                    <div class="axis-title">ÉTICA</div>
-                    <p style="font-size: 0.9rem; color: #64748b;">Principios morales y de cuidado</p>
-                </div>
-                
-                <div class="axis-box axis-4">
-                    <i class="fas fa-hands-helping axis-icon"></i>
-                    <div class="axis-title">CUIDADO</div>
-                    <p style="font-size: 0.9rem; color: #64748b;">Acompañamiento emocional</p>
+                <div class="info-card">
+                    <i class="fas fa-book"></i>
+                    <h3>Asignatura</h3>
+                    <p>Práctica Docente Teológica<br>Unidad 1: Fundamentos</p>
                 </div>
             </div>
-            <div class="connector-l2"></div>
-            
-            <!-- ========== NIVEL 3: DIMENSIONES PRINCIPALES ========== -->
-            <div class="level-3">
+        </div>
+
+        <!-- MAPA CONCEPTUAL PRINCIPAL -->
+        <div class="map-container">
+            <div class="map-title animate-fade">
+                <h2>MAPA CONCEPTUAL</h2>
+                <p>Síntesis de los fundamentos teológicos, pedagógicos, éticos, socioemocionales y legales de la práctica docente teológica en contextos vulnerables</p>
+            </div>
+
+            <!-- CONCEPTO CENTRAL -->
+            <div class="concept-central animate-pulse">
+                <h3>VOCACIÓN DOCENTE COMO MINISTERIO PASTORAL Y PRAXIS TRANSFORMADORA</h3>
+                <p>Integración de fundamentos para una educación humanizante dentro del contexto colombiano</p>
                 
-                <!-- DIMENSIÓN 1 -->
-                <div class="dimension-box dim-1">
-                    <div class="dim-header">
-                        <div class="dim-icon">
+                <div class="concept-tags">
+                    <div class="tag">SABER</div>
+                    <div class="tag">FE</div>
+                    <div class="tag">ÉTICA</div>
+                    <div class="tag">CUIDADO</div>
+                    <div class="tag">COMPROMISO</div>
+                </div>
+            </div>
+
+            <!-- DIMENSIONES DEL MAPA -->
+            <div class="dimensions-grid">
+                <!-- DIMENSIÓN TEOLÓGICA -->
+                <div class="dimension teologica animate-fade">
+                    <div class="dimension-header">
+                        <div class="dimension-icon">
                             <i class="fas fa-church"></i>
                         </div>
                         <div>
-                            <div class="dim-subtitle">Dimensión 1</div>
-                            <div class="dim-title">Fundamentos Teológicos y Pastorales</div>
+                            <div class="dimension-title">Dimensión Teológica y Pastoral</div>
+                            <div class="dimension-subtitle">Docencia como Ministerio Pastoral</div>
                         </div>
                     </div>
                     
-                    <div class="dim-subtitle">Docencia como Ministerio Pastoral</div>
-                    
                     <ul class="concept-list">
-                        <li><strong>VOCACIÓN:</strong> Llamado interior a servir y formar</li>
-                        <li><strong>MISIÓN EVANGELIZADORA:</strong> Enseñar como testimonio</li>
-                        <li><strong>ENCARNACIÓN DEL EVANGELIO:</strong> Reino de Dios en la cotidianidad</li>
-                        <li><strong>DOCENTE-PASTOR:</strong> Mediador espiritual y constructor de comunidad</li>
+                        <li><strong>Vocación:</strong> Llamado interior a servir y formar</li>
+                        <li><strong>Ministerio Pastoral:</strong> Docente como agente pastoral y constructor de comunidad</li>
+                        <li><strong>Testimonio de Fe:</strong> Enseñar como encarnación del Evangelio (Jn 10, 11-14)</li>
+                        <li><strong>Espiritualidad Educativa:</strong> Integración de fe, razón y vida</li>
+                        <li><strong>Agente Evangelizador:</strong> Promotor del Reino de Dios en contextos educativos</li>
                     </ul>
                     
                     <div class="referentes-box">
-                        <h4>Referentes Magisteriales:</h4>
-                        <p>Jesús Maestro, Gravissimum Educationis (Vaticano II, 1965), Veritatis Gaudium (Francisco, 2018), Directorio para la Catequesis</p>
+                        <h4><i class="fas fa-book-bible"></i> Referentes Teológicos y Magisteriales</h4>
+                        <div class="referentes-content">
+                            <p><strong>• Veritatis Gaudium (2018):</strong> Diálogo, comunión y transformación<br>
+                            <strong>• Gravissimum Educationis (1965):</strong> Derecho a educación cristiana<br>
+                            <strong>• Directorio para la Catequesis:</strong> Testigo de fe, servidor de verdad<br>
+                            <strong>• Concilio Vaticano II:</strong> Educador cristiano como testigo y constructor</p>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- DIMENSIÓN 2 -->
-                <div class="dimension-box dim-2">
-                    <div class="dim-header">
-                        <div class="dim-icon">
+
+                <!-- DIMENSIÓN PEDAGÓGICA -->
+                <div class="dimension pedagogica animate-fade">
+                    <div class="dimension-header">
+                        <div class="dimension-icon">
                             <i class="fas fa-chalkboard-teacher"></i>
                         </div>
                         <div>
-                            <div class="dim-subtitle">Dimensión 2</div>
-                            <div class="dim-title">Fundamentos Pedagógicos y Éticos</div>
+                            <div class="dimension-title">Fundamentos Pedagógicos y Éticos</div>
+                            <div class="dimension-subtitle">Educar como Acto Transformador</div>
                         </div>
                     </div>
                     
-                    <div class="dim-subtitle">Educar como Acto Transformador</div>
-                    
                     <ul class="concept-list">
-                        <li><strong>PEDAGOGÍA CRÍTICA:</strong> Paulo Freire - educación liberadora</li>
-                        <li><strong>RECONOCIMIENTO DE SABERES:</strong> Contextualización educativa</li>
-                        <li><strong>ÉTICA DEL CUIDADO:</strong> Nel Noddings - relación pedagógica</li>
-                        <li><strong>JUSTICIA PEDAGÓGICA:</strong> Inclusión, equidad y formación crítica</li>
+                        <li><strong>Pedagogía Crítica:</strong> Paulo Freire - educación como práctica de libertad</li>
+                        <li><strong>Ética del Cuidado:</strong> Nel Noddings - relación pedagógica humanizante</li>
+                        <li><strong>Reconocimiento de Saberes:</strong> Contextualización desde realidades estudiantiles</li>
+                        <li><strong>Justicia Pedagógica:</strong> Inclusión, equidad y formación de sujetos críticos</li>
+                        <li><strong>Coherencia Testimonial:</strong> Armonía entre discurso y práctica docente</li>
                     </ul>
                     
                     <div class="referentes-box">
-                        <h4>Referentes Teóricos:</h4>
-                        <p>Paulo Freire (1970), Nel Noddings (2006), Antonio Bolívar (2005), Pedagogía crítica latinoamericana</p>
+                        <h4><i class="fas fa-users"></i> Referentes Pedagógicos y Éticos</h4>
+                        <div class="referentes-content">
+                            <p><strong>• Paulo Freire (1970):</strong> Pedagogía del oprimido<br>
+                            <strong>• Nel Noddings (2006):</strong> Ética del cuidado en educación<br>
+                            <strong>• Leonardo Boff:</strong> Espiritualidad y liberación<br>
+                            <strong>• Antonio Bolívar:</strong> Ética profesional docente<br>
+                            <strong>• Gustavo Gutiérrez:</strong> Teología de la liberación</p>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- DIMENSIÓN 3 -->
-                <div class="dimension-box dim-3">
-                    <div class="dim-header">
-                        <div class="dim-icon">
+
+                <!-- DIMENSIÓN SOCIOEMOCIONAL -->
+                <div class="dimension socioemocional animate-fade">
+                    <div class="dimension-header">
+                        <div class="dimension-icon">
                             <i class="fas fa-heart"></i>
                         </div>
                         <div>
-                            <div class="dim-subtitle">Dimensión 3</div>
-                            <div class="dim-title">Competencias Socioemocionales</div>
+                            <div class="dimension-title">Competencias Socioemocionales</div>
+                            <div class="dimension-subtitle">Docente como Mediador Emocional</div>
                         </div>
                     </div>
                     
-                    <div class="dim-subtitle">Docente como Mediador Emocional</div>
-                    
                     <ul class="concept-list">
-                        <li><strong>AUTOCONOCIMIENTO:</strong> Conciencia emocional del docente</li>
-                        <li><strong>AUTORREGULACIÓN:</strong> Manejo del estrés y resiliencia</li>
-                        <li><strong>EMPATÍA Y ESCUCHA:</strong> Comprensión y comunicación profunda</li>
-                        <li><strong>CLIMA EMOCIONAL:</strong> Construcción de ambientes seguros</li>
+                        <li><strong>Autoconocimiento:</strong> Conciencia emocional y autorreflexión docente</li>
+                        <li><strong>Autorregulación:</strong> Manejo del estrés, resiliencia y equilibrio</li>
+                        <li><strong>Empatía y Escucha Activa:</strong> Comprensión profunda y comunicación afectiva</li>
+                        <li><strong>Clima Emocional:</strong> Construcción de ambientes seguros e inclusivos</li>
+                        <li><strong>Acompañamiento Pastoral:</strong> Cuidado espiritual y emocional integral</li>
                     </ul>
                     
                     <div class="referentes-box">
-                        <h4>Referentes Teóricos:</h4>
-                        <p>Daniel Goleman (1995), Rafael Bisquerra (2009), CASEL, MEN Colombia - Estrategia Nacional CSE (2021)</p>
+                        <h4><i class="fas fa-brain"></i> Referentes Socioemocionales</h4>
+                        <div class="referentes-content">
+                            <p><strong>• Daniel Goleman (1995):</strong> Inteligencia emocional<br>
+                            <strong>• Rafael Bisquerra (2009):</strong> Educación emocional<br>
+                            <strong>• Mayer & Salovey:</strong> Modelo de inteligencia emocional<br>
+                            <strong>• CASEL:</strong> Marco de competencias socioemocionales<br>
+                            <strong>• MEN Colombia (2021):</strong> Estrategia Nacional de CSE</p>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- DIMENSIÓN 4 -->
-                <div class="dimension-box dim-4">
-                    <div class="dim-header">
-                        <div class="dim-icon">
+
+                <!-- DIMENSIÓN LEGAL -->
+                <div class="dimension legal animate-fade">
+                    <div class="dimension-header">
+                        <div class="dimension-icon">
                             <i class="fas fa-gavel"></i>
                         </div>
                         <div>
-                            <div class="dim-subtitle">Dimensión 4</div>
-                            <div class="dim-title">Marco Legal y Normativo</div>
+                            <div class="dimension-title">Marco Legal y Normativo</div>
+                            <div class="dimension-subtitle">Docencia como Servicio Público</div>
                         </div>
                     </div>
                     
-                    <div class="dim-subtitle">Docencia como Servicio Público</div>
-                    
                     <ul class="concept-list">
-                        <li><strong>CONSTITUCIÓN COLOMBIANA (Art. 67):</strong> Educación como derecho</li>
-                        <li><strong>LEY 115 DE 1994:</strong> Ley General de Educación</li>
-                        <li><strong>LEY 1620 DE 2013:</strong> Convivencia escolar</li>
-                        <li><strong>DECRETOS REGULATORIOS:</strong> Calidad y ejercicio profesional</li>
+                        <li><strong>Constitución Política:</strong> Arts. 67, 68, 69 - Educación como derecho</li>
+                        <li><strong>Ley 115 de 1994:</strong> Ley General de Educación - fines y principios</li>
+                        <li><strong>Ley 1620 de 2013:</strong> Sistema Nacional de Convivencia Escolar</li>
+                        <li><strong>Decreto 709 de 1996:</strong> Formación integral de educadores</li>
+                        <li><strong>Decreto Ley 2277 de 1979:</strong> Estatuto Docente y ejercicio profesional</li>
                     </ul>
                     
                     <div class="referentes-box">
-                        <h4>Función Normativa:</h4>
-                        <p>Legitima, orienta y exige una práctica docente de calidad, ética y con impacto social en el contexto colombiano</p>
-                    </div>
-                </div>
-            </div>
-            <div class="connector-l3"></div>
-            
-            <!-- ========== NIVEL 4: INTEGRACIÓN Y CONTEXTO ========== -->
-            <div class="level-4">
-                <div class="detail-box">
-                    <div class="detail-title">
-                        <i class="fas fa-puzzle-piece"></i> ARTICULACIÓN INTEGRADORA
-                    </div>
-                    <div class="detail-grid">
-                        <div class="detail-item">
-                            <h5>Nexo Central: La Ética</h5>
-                            <p>Puente que conecta todas las dimensiones (del cuidado, profesional y cristiana)</p>
-                        </div>
-                        <div class="detail-item">
-                            <h5>Flujo Formativo</h5>
-                            <p>VOCACIÓN → PEDAGOGÍA → CUIDADO → REGULACIÓN → PRAXIS TRANSFORMADORA</p>
-                        </div>
-                        <div class="detail-item">
-                            <h5>Marcos de Referencia</h5>
-                            <p>ODS 4 (Educación de calidad), ODS 16 (Sociedades pacíficas), PEI Universidad Mariana</p>
-                        </div>
-                        <div class="detail-item">
-                            <h5>Contexto Aplicado</h5>
-                            <p>Vulnerabilidad, diversidad, construcción de paz en el contexto colombiano</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="detail-box">
-                    <div class="detail-title">
-                        <i class="fas fa-graduation-cap"></i> APLICACIÓN PEDAGÓGICA
-                    </div>
-                    <div class="detail-grid">
-                        <div class="detail-item">
-                            <h5>Aula Presencial/Virtual</h5>
-                            <p>Diseño de ambientes emocionalmente seguros y espiritualmente significativos</p>
-                        </div>
-                        <div class="detail-item">
-                            <h5>Evaluación Integral</h5>
-                            <p>Criterios cognitivos, éticos, socioemocionales y pastorales</p>
-                        </div>
-                        <div class="detail-item">
-                            <h5>Acompañamiento</h5>
-                            <p>Escucha activa, discernimiento vocacional, cuidado emocional y espiritual</p>
-                        </div>
-                        <div class="detail-item">
-                            <h5>Formación Continua</h5>
-                            <p>Actualización en pedagogía, ética, espiritualidad y marco legal</p>
+                        <h4><i class="fas fa-balance-scale"></i> Marco Normativo y Referentes</h4>
+                        <div class="referentes-content">
+                            <p><strong>• ODS 4:</strong> Educación de calidad inclusiva<br>
+                            <strong>• ODS 16:</strong> Sociedades pacíficas e inclusivas<br>
+                            <strong>• UNESCO (2015):</strong> Educación para desarrollo sostenible<br>
+                            <strong>• Decreto 1330 de 2019:</strong> Calidad en educación superior<br>
+                            <strong>• PEI Institucional:</strong> Proyecto Educativo Bethlemita</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- ========== NIVEL 5: PERFIL DE SALIDA ========== -->
-            <div class="level-5">
-                <div class="profile-title">
-                    <i class="fas fa-user-graduate"></i> PERFIL DE SALIDA DEL EDUCADOR TEÓLOGO
+
+            <!-- SECCIÓN DE CONTEXTO -->
+            <div class="context-section animate-fade">
+                <div class="section-title">
+                    <i class="fas fa-map-marker-alt"></i> CONTEXTO DE LA PRÁCTICA DOCENTE
                 </div>
                 
-                <div class="profile-grid">
-                    <div class="profile-item">
-                        <div class="profile-icon">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <h4>Mediador Crítico</h4>
-                        <p>Del conocimiento y la fe, integrando saberes disciplinares con visión trascendente</p>
+                <div class="context-content">
+                    <div class="context-card">
+                        <h3><i class="fas fa-university"></i> INSTITUCIÓN EDUCATIVA</h3>
+                        <ul>
+                            <li><strong>Nombre:</strong> Colegio Sagrado Corazón de Jesús</li>
+                            <li><strong>Fundación:</strong> Hermanas Bethlemitas</li>
+                            <li><strong>Ubicación:</strong> Pasto, Nariño - Colombia</li>
+                            <li><strong>Carácter:</strong> Privado confesional católico</li>
+                            <li><strong>Niveles:</strong> Educación Básica y Media</li>
+                            <li><strong>PEI:</strong> Enfoque humanista cristiano bethlemita</li>
+                            <li><strong>Misión:</strong> Formación integral desde valores evangélicos</li>
+                        </ul>
                     </div>
                     
-                    <div class="profile-item">
-                        <div class="profile-icon">
-                            <i class="fas fa-dove"></i>
-                        </div>
-                        <h4>Testigo de Esperanza</h4>
-                        <p>Constructor de comunidad en contextos de vulnerabilidad y exclusión</p>
+                    <div class="context-card">
+                        <h3><i class="fas fa-users"></i> POBLACIÓN ESTUDIANTIL</h3>
+                        <ul>
+                            <li><strong>Grados atendidos:</strong> 6°, 7°, 8°, 9° (Oct-Nov 2025)</li>
+                            <li><strong>Edades:</strong> 11-15 años (adolescencia temprana)</li>
+                            <li><strong>Contexto socioeconómico:</strong> Urbano, diversidad media</li>
+                            <li><strong>Identidad religiosa:</strong> Predominancia católica</li>
+                            <li><strong>Características:</strong> Etapa de búsqueda identitaria</li>
+                            <li><strong>Necesidades:</strong> Acompañamiento emocional y espiritual</li>
+                            <li><strong>Retos:</strong> Convivencia escolar, motivación académica</li>
+                        </ul>
                     </div>
                     
-                    <div class="profile-item">
-                        <div class="profile-icon">
-                            <i class="fas fa-hands-holding-heart"></i>
+                    <div class="context-card">
+                        <h3><i class="fas fa-star"></i> CARISMA BETHLEMITA</h3>
+                        <ul>
+                            <li><strong>Espiritualidad:</strong> Natividad - Acogida y humildad</li>
+                            <li><strong>Valores centrales:</strong> Humildad, alegría, servicio, sencillez</li>
+                            <li><strong>Misión educativa:</strong> "Educar evangelizando y evangelizar educando"</li>
+                            <li><strong>Enfoque pedagógico:</strong> Educación personalizada e integral</li>
+                            <li><strong>Principios:</strong> Formación en fe, justicia y solidaridad</li>
+                            <li><strong>Metodología:</strong> Acompañamiento cercano y familiar</li>
+                            <li><strong>Horizonte:</strong> Construcción de la "Casa Común" educativa</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PLAN DE CLASE -->
+            <div class="plan-section animate-fade">
+                <div class="section-title">
+                    <i class="fas fa-clipboard-list"></i> PLAN DE CLASE INTEGRADO - ENFOQUE ABP
+                </div>
+                
+                <div class="plan-grid">
+                    <div class="plan-card">
+                        <h3><i class="fas fa-balance-scale"></i> GRADO 9°: DOCTRINA vs. ADOCTRINAMIENTO</h3>
+                        
+                        <div class="plan-meta">
+                            <div class="meta-item">
+                                <h4>Tema Central</h4>
+                                <p>ERE y Libertad de Pensamiento (Art. 19 Constitución)</p>
+                            </div>
+                            <div class="meta-item">
+                                <h4>Fecha</h4>
+                                <p>03-07 Noviembre 2025</p>
+                            </div>
+                            <div class="meta-item">
+                                <h4>Enfoque ABP</h4>
+                                <p>Proyecto "Diálogo Fe-Razón en la Escuela"</p>
+                            </div>
+                            <div class="meta-item">
+                                <h4>Evaluación</h4>
+                                <p>Cuadro comparativo y debate evaluado</p>
+                            </div>
                         </div>
-                        <h4>Acompañante Ético</h4>
-                        <p>Pastor y cuidador con competencias socioemocionales para el acompañamiento integral</p>
+                        
+                        <div class="competencies">
+                            <h4><i class="fas fa-bullseye"></i> Competencias a Desarrollar</h4>
+                            <ul>
+                                <li><strong>Cognitiva:</strong> Contrasta doctrina (enseñanza) y adoctrinamiento (imposición)</li>
+                                <li><strong>Procedimental:</strong> Analiza casos reales desde la libertad de pensamiento</li>
+                                <li><strong>Actitudinal:</strong> Valora la ERE como espacio de diálogo fe-razón</li>
+                                <li><strong>Socioemocional:</strong> Practica escucha activa en debates controversiales</li>
+                                <li><strong>Pastoral:</strong> Reconoce el testimonio coherente como evangelización</li>
+                            </ul>
+                        </div>
                     </div>
                     
-                    <div class="profile-item">
-                        <div class="profile-icon">
-                            <i class="fas fa-scale-balanced"></i>
+                    <div class="plan-card">
+                        <h3><i class="fas fa-home"></i> GRADO 7°: LA FAMILIA COMO COMUNIDAD</h3>
+                        
+                        <div class="plan-meta">
+                            <div class="meta-item">
+                                <h4>Tema Central</h4>
+                                <p>Primera Comunidad de Solidaridad y Cuidado</p>
+                            </div>
+                            <div class="meta-item">
+                                <h4>Fecha</h4>
+                                <p>03-07 Noviembre 2025</p>
+                            </div>
+                            <div class="meta-item">
+                                <h4>Enfoque ABP</h4>
+                                <p>Proyecto "Escudo de Valores Familiares"</p>
+                            </div>
+                            <div class="meta-item">
+                                <h4>Evaluación</h4>
+                                <p>Presentación creativa y reflexión escrita</p>
+                            </div>
                         </div>
-                        <h4>Agente Transformador</h4>
-                        <p>Garante de derechos y constructor de una sociedad más justa, fraterna y reconciliada</p>
+                        
+                        <div class="competencies">
+                            <h4><i class="fas fa-bullseye"></i> Competencias a Desarrollar</h4>
+                            <ul>
+                                <li><strong>Cognitiva:</strong> Identifica tipos de familia y sus funciones sociales</li>
+                                <li><strong>Procedimental:</strong> Conecta valores familiares con convivencia escolar</li>
+                                <li><strong>Actitudinal:</strong> Valora la corresponsabilidad en construcción comunitaria</li>
+                                <li><strong>Socioemocional:</strong> Desarrolla empatía hacia diversas realidades familiares</li>
+                                <li><strong>Pastoral:</strong> Reconoce la familia como "Iglesia doméstica"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROYECTO DE DEVOLUCIÓN/CREACIÓN -->
+            <div class="project-return animate-fade">
+                <div class="section-title">
+                    <i class="fas fa-project-diagram"></i> PROYECTO DE DEVOLUCIÓN/CREACIÓN: "BELÉN EDUCATIVO"
+                </div>
+                
+                <div class="project-content">
+                    <div class="project-card">
+                        <h3><i class="fas fa-seedling"></i> PROYECTO INTEGRAL "BELÉN EDUCATIVO"</h3>
+                        
+                        <p><strong>Justificación:</strong> Articular los aprendizajes teórico-prácticos de la Unidad 1 en una iniciativa concreta que encarne el carisma bethlemita, transformando el espacio escolar en un "Belén" donde cada estudiante sea acogido, valorado y formado integralmente desde la espiritualidad de la Natividad.</p>
+                        
+                        <p><strong>Objetivo General:</strong> Crear un ecosistema educativo que encarne los valores bethlemitas de humildad, alegría y servicio, promoviendo una educación humanizante y transformadora en el Colegio Sagrado Corazón de Jesús.</p>
+                        
+                        <div class="project-products">
+                            <h4><i class="fas fa-cube"></i> Productos Concretos del Proyecto:</h4>
+                            <ol>
+                                <li><strong>MURAL DE LA NATIVIDAD PEDAGÓGICA:</strong> Representación artística colaborativa de los valores bethlemitas en la educación</li>
+                                <li><strong>BANCO DE LA PALABRA:</strong> Espacio físico y digital para diálogo fe-razón y resolución pacífica de conflictos</li>
+                                <li><strong>JARDÍN BETHLEMITA:</strong> Huerta escolar como metáfora del cuidado de la Creación y trabajo colaborativo</li>
+                                <li><strong>GUÍA "EDUCAR EN LA ALEGRÍA":</strong> Material para docentes con estrategias bethlemitas para clima emocional positivo</li>
+                                <li><strong>FESTIVAL DE TESTIMONIOS:</strong> Evento semestral donde estudiantes comparten aprendizajes significativos</li>
+                                <li><strong>RINCÓN DE LA ESPIRITUALIDAD:</strong> Espacio para oración, reflexión y acompañamiento pastoral</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h3><i class="fas fa-chart-line"></i> IMPLEMENTACIÓN Y EVALUACIÓN</h3>
+                        
+                        <div class="implementation-grid">
+                            <div class="phase">
+                                <h5>Fase 1: Diagnóstico</h5>
+                                <p>Identificación de necesidades educativas y pastorales (Oct 2025)<br>Herramientas: Encuestas, observación, grupos focales</p>
+                            </div>
+                            <div class="phase">
+                                <h5>Fase 2: Diseño</h5>
+                                <p>Planificación colaborativa con estudiantes y docentes (Nov 2025)<br>Metodología: ABP y diseño participativo</p>
+                            </div>
+                            <div class="phase">
+                                <h5>Fase 3: Ejecución</h5>
+                                <p>Desarrollo de productos y actividades (Nov-Dic 2025)<br>Enfoque: Trabajo por proyectos y aprendizaje servicio</p>
+                            </div>
+                            <div class="phase">
+                                <h5>Fase 4: Evaluación</h5>
+                                <p>Análisis de impacto y sistematización (Ene 2026)<br>Instrumentos: Rúbricas, portafolios, entrevistas</p>
+                            </div>
+                        </div>
+                        
+                        <div class="implementation-grid" style="margin-top: 25px;">
+                            <div class="phase">
+                                <h5>Indicadores de Proceso</h5>
+                                <p>• Participación del 80% de estudiantes<br>• Cumplimiento del 90% del cronograma<br>• Involucramiento del 70% de docentes</p>
+                            </div>
+                            <div class="phase">
+                                <h5>Indicadores de Resultado</h5>
+                                <p>• 6 productos concretos realizados<br>• 4 eventos comunitarios ejecutados<br>• 100% de grados involucrados</p>
+                            </div>
+                            <div class="phase">
+                                <h5>Indicadores de Impacto</h5>
+                                <p>• Mejora del 30% en clima escolar<br>• Integración del carisma bethlemita en PEI<br>• Fortalecimiento de convivencia</p>
+                            </div>
+                            <div class="phase">
+                                <h5>Sostenibilidad</h5>
+                                <p>• Integración al PEI institucional<br>• Formación de líderes estudiantiles<br>• Alianza con comunidad bethlemita</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INTEGRACIÓN Y ARTICULACIÓN -->
+            <div class="integration-section animate-fade">
+                <div class="section-title" style="color: var(--color-teologico);">
+                    <i class="fas fa-puzzle-piece"></i> ARTICULACIÓN INTEGRADORA Y REFLEXIÓN FINAL
+                </div>
+                
+                <div class="integration-grid">
+                    <div class="integration-card">
+                        <h3><i class="fas fa-link"></i> NEXOS CONCEPTUALES CLAVE</h3>
+                        
+                        <div class="integration-items">
+                            <div class="integration-item">
+                                <h4>Ética como Puente</h4>
+                                <p>Conecta todas las dimensiones (ética del cuidado, profesional y cristiana) en una práctica docente coherente</p>
+                            </div>
+                            <div class="integration-item">
+                                <h4>Carisma como Identidad</h4>
+                                <p>El carisma bethlemita da identidad y sentido a la práctica docente en contextos vulnerables</p>
+                            </div>
+                            <div class="integration-item">
+                                <h4>Legalidad como Marco</h4>
+                                <p>El marco legal colombiano legitima y orienta la vocación docente como servicio público</p>
+                            </div>
+                            <div class="integration-item">
+                                <h4>Emocionalidad como Cimiento</h4>
+                                <p>Las competencias socioemocionales son base para relaciones pedagógicas humanizantes</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="integration-card">
+                        <h3><i class="fas fa-graduation-cap"></i> PERFIL DEL EDUCADOR TEÓLOGO BETHLEMITA</h3>
+                        
+                        <div class="integration-items">
+                            <div class="integration-item">
+                                <h4>Mediador Crítico</h4>
+                                <p>Integra saberes disciplinares con visión trascendente desde el diálogo fe-razón</p>
+                            </div>
+                            <div class="integration-item">
+                                <h4>Testigo de Esperanza</h4>
+                                <p>Constructor de comunidad en contextos de vulnerabilidad desde el carisma bethlemita</p>
+                            </div>
+                            <div class="integration-item">
+                                <h4>Acompañante Ético</h4>
+                                <p>Pastor y cuidador con competencias socioemocionales para el acompañamiento integral</p>
+                            </div>
+                            <div class="integration-item">
+                                <h4>Agente Transformador</h4>
+                                <p>Garante de derechos y constructor de sociedad justa, fraterna y reconciliada</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REFERENCIAS BIBLIOGRÁFICAS -->
+            <div class="references-section animate-fade">
+                <div class="references-title">
+                    <i class="fas fa-book"></i> REFERENCIAS BIBLIOGRÁFICAS
+                </div>
+                
+                <div class="references-grid">
+                    <div class="reference-category">
+                        <h3><i class="fas fa-church"></i> Referentes Teológicos y Magisteriales</h3>
+                        <ul class="reference-list">
+                            <li>Francisco. (2018). <i>Constitución apostólica Veritatis Gaudium sobre las universidades y las facultades eclesiásticas</i>.</li>
+                            <li>Pontificio Consejo para la Promoción de la Nueva Evangelización. (2020). <i>Directorio para la catequesis</i>. Vaticano.</li>
+                            <li>Vaticano II. (1965). <i>Declaración Gravissimum Educationis sobre la educación cristiana</i>.</li>
+                            <li>Boff, L. (1985). <i>Iglesia: Carisma y poder</i>. Sal Terrae.</li>
+                            <li>Gutiérrez, G. (1971). <i>Teología de la liberación</i>. Sígueme.</li>
+                            <li>Congregación de Hermanas Bethlemitas. (2023). <i>Carisma y espiritualidad bethlemita</i>. Documento institucional.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="reference-category">
+                        <h3><i class="fas fa-users"></i> Referentes Pedagógicos y Éticos</h3>
+                        <ul class="reference-list">
+                            <li>Freire, P. (1970). <i>Pedagogía del oprimido</i>. Siglo XXI Editores.</li>
+                            <li>Freire, P. (1997). <i>Cartas a quien pretende enseñar</i>. Editorial Siglo XXI.</li>
+                            <li>Noddings, N. (2006). <i>El cuidado en la educación</i>. Editorial Paidós.</li>
+                            <li>Noddings, N. (2012). <i>La filosofía del cuidado</i>. Editorial Graó.</li>
+                            <li>Bolívar, A. (2005). <i>El lugar de la ética profesional en la formación universitaria</i>. Revista Mexicana de Investigación Educativa.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="reference-category">
+                        <h3><i class="fas fa-brain"></i> Competencias Socioemocionales</h3>
+                        <ul class="reference-list">
+                            <li>Goleman, D. (1995). <i>Inteligencia emocional</i>. Kairos.</li>
+                            <li>Bisquerra, R. (2009). <i>Educación emocional y competencias básicas</i>. Editorial Síntesis.</li>
+                            <li>Mayer, J. D., & Salovey, P. (1997). <i>What is emotional intelligence?</i> En P. Salovey & D. Sluyter (Eds.), Emotional development and emotional intelligence (pp. 3-31). Basic Books.</li>
+                            <li>Ministerio de Educación Nacional de Colombia. (2021). <i>Estrategia Nacional de Competencias Socioemocionales</i>.</li>
+                            <li>Colombia Aprende. (2022). <i>Materiales y guías de competencias socioemocionales</i>.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="reference-category">
+                        <h3><i class="fas fa-gavel"></i> Marco Legal y Normativo</h3>
+                        <ul class="reference-list">
+                            <li>Congreso de Colombia. (1991). <i>Constitución Política de Colombia</i>.</li>
+                            <li>Congreso de Colombia. (1994). <i>Ley 115 de 1994: Ley General de Educación</i>. Diario Oficial.</li>
+                            <li>Congreso de Colombia. (2013). <i>Ley 1620 de 2013: Sistema Nacional de Convivencia Escolar</i>.</li>
+                            <li>Presidencia de la República. (1996). <i>Decreto 709 de 1996: Reglamentación de programas de formación de educadores</i>.</li>
+                            <li>Presidencia de la República. (2019). <i>Decreto 1330 de 2019: Condiciones de calidad de la educación superior</i>.</li>
+                            <li>Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura (UNESCO). (2015). <i>Educación para los Objetivos de Desarrollo Sostenible</i>. París: UNESCO.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- ========== REFERENCIAS BIBLIOGRÁFICAS ========== -->
-        <footer>
-            <div class="references">
-                <h3><i class="fas fa-book"></i> REFERENCIAS BIBLIOGRÁFICAS</h3>
-                <div class="references-list">
-                    <p>Bisquerra, R. (2009). <i>Educación emocional y competencias básicas</i>. Editorial Síntesis.</p>
-                    <p>Congreso de Colombia. (1994, 8 de febrero). <i>Ley 115 de 1994. Por la cual se expide la ley general de educación</i>. Diario Oficial No. 41.214.</p>
-                    <p>Francisco. (2018). <i>Constitución apostólica Veritatis Gaudium sobre las universidades y las facultades eclesiásticas</i>.</p>
-                    <p>Freire, P. (1970). <i>Pedagogía del oprimido</i>. Siglo XXI Editores.</p>
-                    <p>Freire, P. (1997). <i>Cartas a quien pretende enseñar</i>. Editorial Siglo XXI.</p>
-                    <p>Goleman, D. (1995). <i>Inteligencia emocional</i>. Kairos.</p>
-                    <p>Ministerio de Educación Nacional de Colombia. (2021). <i>Estrategia Nacional de Competencias Socioemocionales</i>.</p>
-                    <p>Noddings, N. (2006). <i>El cuidado en la educación</i>. Editorial Paidós.</p>
-                    <p>Noddings, N. (2012). <i>La filosofía del cuidado</i>. Editorial Graó.</p>
-                    <p>Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura (UNESCO). (2015). <i>Educación para los Objetivos de Desarrollo Sostenible</i>. París: UNESCO.</p>
-                    <p>Pontificio Consejo para la Promoción de la Nueva Evangelización. (2020). <i>Directorio para la Catequesis</i>. Vaticano.</p>
-                    <p>Vaticano II. (1965). <i>Gravissimum Educationis. Declaración sobre la educación cristiana</i>.</p>
+
+        <!-- FOOTER Y LEGENDA -->
+        <footer class="animate-fade">
+            <div class="footer-content">
+                <div class="footer-title">
+                    <i class="fas fa-laptop-code"></i> MAPA CONCEPTUAL INTERACTIVO - PRÁCTICA DOCENTE TEOLÓGICA
                 </div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #64748b;">
-                <p><i class="fas fa-map"></i> <strong>Mapa Conceptual</strong> - Fundamentos de la Práctica Docente Teológica</p>
-                <p>Universidad Mariana - Facultad de Educación - Licenciatura en Teología </p>
-                <p style="font-size: 0.8rem; margin-top: 10px;">Presentado por Alejandro Del Castillo</p>
+                <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.95;">
+                    Síntesis integral de los fundamentos teórico-prácticos de la Unidad 1, articulando dimensión teológica, pedagógica, socioemocional y legal en el contexto educativo colombiano
+                </p>
+                
+                <div class="footer-info">
+                    <div class="footer-item">
+                        <i class="fas fa-user-graduate"></i>
+                        <p><strong>Estudiante</strong><br>Jesús Alejandro Del Castillo Rincón</p>
+                    </div>
+                    <div class="footer-item">
+                        <i class="fas fa-university"></i>
+                        <p><strong>Institución</strong><br>Universidad Mariana<br>Facultad de Educación</p>
+                    </div>
+                    <div class="footer-item">
+                        <i class="fas fa-book-open"></i>
+                        <p><strong>Asignatura</strong><br>Práctica Docente Teológica<br>Unidad 1: Fundamentos</p>
+                    </div>
+                    <div class="footer-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <p><strong>Fecha de Entrega</strong><br>Febrero 09<br>Modalidad Asíncrona</p>
+                    </div>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color color-1"></div>
+                        <span>Dimensión Teológica y Pastoral</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-2"></div>
+                        <span>Fundamentos Pedagógicos y Éticos</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-3"></div>
+                        <span>Competencias Socioemocionales</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-4"></div>
+                        <span>Marco Legal y Normativo</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-5"></div>
+                        <span>Proyecto de Devolución/Creación</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-6"></div>
+                        <span>Contexto de la Práctica</span>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 50px; opacity: 0.8; font-size: 0.95rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+                 </p>
             </div>
         </footer>
     </div>
 
     <script>
-        // Animación para revelar elementos al hacer scroll
+        // Interactividad y animaciones
         document.addEventListener('DOMContentLoaded', function() {
+            // Animación al hacer scroll
             const observerOptions = {
                 threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                rootMargin: '0px 0px -100px 0px'
             };
             
             const observer = new IntersectionObserver(function(entries) {
@@ -751,41 +1475,93 @@
                 });
             }, observerOptions);
             
-            // Observar todos los niveles
-            const levels = document.querySelectorAll('.level-2, .level-3, .level-4, .level-5');
-            levels.forEach(level => {
-                level.style.opacity = '0';
-                level.style.transform = 'translateY(20px)';
-                level.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(level);
+            // Aplicar animación a elementos
+            const animatedElements = document.querySelectorAll('.dimension, .context-card, .plan-card, .project-card, .integration-card, .reference-category');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
             });
             
-            // Efectos hover para cajas
-            const boxes = document.querySelectorAll('.dimension-box, .detail-item, .profile-item');
-            boxes.forEach(box => {
-                box.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+            // Efectos hover
+            const hoverElements = document.querySelectorAll('.dimension, .context-card, .plan-card, .project-card, .integration-card, .info-card');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
                 });
                 
-                box.addEventListener('mouseleave', function() {
+                el.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0)';
                     this.style.boxShadow = '';
                 });
             });
             
-            // Resaltar conexiones jerárquicas
-            const connectors = document.querySelectorAll('.connector-l1, .connector-l2, .connector-l3');
-            connectors.forEach(connector => {
-                connector.addEventListener('mouseenter', function() {
-                    this.style.backgroundColor = '#3b82f6';
-                    this.style.width = '5px';
+            // Efecto para tags
+            const tags = document.querySelectorAll('.tag');
+            tags.forEach(tag => {
+                tag.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.1)';
+                    this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.15)';
                 });
                 
-                connector.addEventListener('mouseleave', function() {
-                    this.style.backgroundColor = '#94a3b8';
-                    this.style.width = '3px';
+                tag.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = 'none';
                 });
+            });
+            
+            // Resaltar elementos de lista al pasar mouse
+            const listItems = document.querySelectorAll('.concept-list li, .context-card li, .competencies li');
+            listItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.paddingLeft = '35px';
+                    this.style.backgroundColor = 'rgba(0,0,0,0.03)';
+                    this.style.borderRadius = '5px';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.paddingLeft = '30px';
+                    this.style.backgroundColor = 'transparent';
+                });
+            });
+            
+            // Efecto pulsante para el concepto central
+            const centralConcept = document.querySelector('.concept-central');
+            setInterval(() => {
+                centralConcept.classList.toggle('animate-pulse');
+            }, 3000);
+            
+            // Smooth scroll para anclas internas
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Cambio de color dinámico en elementos de integración
+            const integrationItems = document.querySelectorAll('.integration-item');
+            integrationItems.forEach((item, index) => {
+                const colors = [
+                    'var(--color-teologico)',
+                    'var(--color-pedagogico)', 
+                    'var(--color-socioemocional)',
+                    'var(--color-legal)'
+                ];
+                
+                item.style.borderLeftColor = colors[index % colors.length];
+                item.querySelector('h4').style.color = colors[index % colors.length];
             });
         });
     </script>
